@@ -30,4 +30,8 @@ public class SocialMedia {
     @Column(name = "porfile_url")
     private String porfileUrl;
 
+    @ManyToOne
+    @JoinColumn(name = "user_details_id" , referencedColumnName = "id" , insertable = false, updatable = false )
+    private UserDetails userDetails;
+
 }

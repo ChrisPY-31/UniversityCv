@@ -30,4 +30,8 @@ public class User {
 
     @Column(nullable = false , columnDefinition = "SMALLINT")
     private Boolean disabled;
+
+    @OneToOne
+    @JoinColumn(name = "user_id" , referencedColumnName = "id" , insertable = false , updatable = false)
+    private UserDetails userDetails;
 }

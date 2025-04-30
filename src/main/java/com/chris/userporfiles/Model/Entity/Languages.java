@@ -25,4 +25,8 @@ public class Languages {
     private String languaje;
 
     private String proficiency;
+
+    @ManyToOne
+    @JoinColumn(name = "user_details_id" , referencedColumnName = "id" , insertable = false, updatable = false)
+    private UserDetails userDetails;
 }

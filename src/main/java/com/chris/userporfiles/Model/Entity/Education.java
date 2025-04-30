@@ -34,4 +34,7 @@ public class Education {
     @Column(name = "end_date" , columnDefinition = "DATE")
     private LocalDateTime endDate;
 
+    @ManyToOne
+    @JoinColumn(name = "user_details_id" , referencedColumnName = "id" , insertable = false , updatable = false)
+    private UserDetails userDetails;
 }

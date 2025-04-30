@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "projects")
@@ -18,6 +19,7 @@ public class Projects {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_Projects")
     private Integer idProjects;
 
     @Column(name = "user_details_id")
@@ -40,4 +42,11 @@ public class Projects {
 
     @Column(name = "end_date" , columnDefinition = "DATE")
     private LocalDate endDate;
+
+    @ManyToOne
+    @JoinColumn(name = "user_details_id" , referencedColumnName = "id" , insertable = false , updatable = false)
+    private UserDetails userDetails;
+
+    @OneToMany(mappedBy = "project")
+    private List<Aptitudes> aptitudes;
 }
