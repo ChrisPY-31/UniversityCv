@@ -23,4 +23,7 @@ public class Career {
 
     @Column(name = "career_name" , nullable = false , length = 50)
     private String careerName;
+
+    @OneToOne(mappedBy = "career" )
+    private UserDetails userDetails;
 }

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "user_details")
@@ -58,4 +59,27 @@ public class UserDetails {
 
     @Column(name = "created_at" , columnDefinition = "DATE")
     private LocalDateTime createdAt;
+
+    @OneToOne(mappedBy = "userDetails")
+    private User user;
+
+    @OneToMany(mappedBy = "userDetails")
+    private List<SocialMedia> socialMedia;
+
+    @OneToMany(mappedBy = "userDetails")
+    private List<Education> education;
+
+    @OneToMany(mappedBy = "userDetails")
+    private List<Languages> languages;
+
+    @OneToMany(mappedBy = "userDetails")
+    private List<Projects> projects;
+
+    @OneToMany(mappedBy = "userDetails")
+    private List<Skills> skills;
+
+    @OneToOne
+    @JoinColumn(name = "user_details_id" , referencedColumnName = "id" , insertable = false, updatable = false)
+    private Career career;
+
 }

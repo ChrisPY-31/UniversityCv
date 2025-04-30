@@ -23,4 +23,8 @@ public class Aptitudes {
 
     @Column(length = 50 , nullable = false)
     private String name;
+
+    @ManyToOne
+    @JoinColumn(name = "id_project" , referencedColumnName = "id_Projects" , insertable = false , updatable = false)
+    private Projects project;
 }

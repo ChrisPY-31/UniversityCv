@@ -26,4 +26,7 @@ public class Skills {
 
     private String image;
 
+    @ManyToOne
+    @JoinColumn(name = "user_details_id" , referencedColumnName = "id" , insertable = false , updatable = false)
+    private UserDetails userDetails;
 }
