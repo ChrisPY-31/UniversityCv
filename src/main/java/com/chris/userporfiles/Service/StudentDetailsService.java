@@ -9,7 +9,11 @@ import java.util.List;
 
 public interface StudentDetailsService {
 
-    Page<StudentDetails> getAllStudents(Pageable pageable);
+    Page<StudentDetails> getAllStudents(int page , int size);
+
+    Boolean existStudent(Integer id);
+
+    StudentDetails getStudentById(int id);
 
     StudentDetails saveStudent(StudentDetails studentDetails);
 

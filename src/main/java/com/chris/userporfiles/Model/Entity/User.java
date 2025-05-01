@@ -16,6 +16,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     @Column(name = "username" , nullable = false , length = 20)
     private String userName;
 
@@ -32,6 +33,6 @@ public class User {
     private Boolean disabled;
 
     @OneToOne
-    @JoinColumn(name = "user_id" , referencedColumnName = "id" , insertable = false , updatable = false)
+    @JoinColumn(name = "id" , referencedColumnName = "user_id" , insertable = false , updatable = false)
     private StudentDetails studentDetails;
 }
