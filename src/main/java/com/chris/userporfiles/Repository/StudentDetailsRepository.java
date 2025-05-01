@@ -9,11 +9,11 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface StudentDetailsRepository extends ListCrudRepository<StudentDetails , Integer> {
+public interface StudentDetailsRepository extends ListCrudRepository<StudentDetails, Integer> {
 
-    List<StudentDetails> findAllByNameOrLastName(String name , String lastName);
+    List<StudentDetails> findAllByNameOrLastName(String name, String lastName);
 
-    List<StudentDetails> findAllByCareerContaining(String career);
+    List<StudentDetails> findAllByCareerCareerName(String career);
 
 
 }

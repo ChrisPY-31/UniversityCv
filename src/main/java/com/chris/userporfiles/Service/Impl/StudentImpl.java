@@ -22,7 +22,7 @@ public class StudentImpl implements StudentDetailsService {
     private StudentDetailsPaginationRepository studentDetailsPaginationRepository;
 
     @Override
-    public Page<StudentDetails> finAllStudents(Pageable pageable) {
+    public Page<StudentDetails> getAllStudents(Pageable pageable) {
         return studentDetailsPaginationRepository.findAll(pageable);
     }
 
@@ -32,8 +32,9 @@ public class StudentImpl implements StudentDetailsService {
     }
 
     @Override
-    public List<StudentDetails> findAllNameAndLastname(String name, String lastName) {
+    public List<StudentDetails> getAllNameAndLastname(String name, String lastName) {
         return studentDetailsRepository.findAllByNameOrLastName(name, lastName);
+       // return List.of();
     }
 
     @Override
@@ -43,7 +44,8 @@ public class StudentImpl implements StudentDetailsService {
 
     @Override
     public List<StudentDetails> studentCareer(String careerName) {
-        return studentDetailsRepository.findAllByCareerContaining(careerName);
+        return studentDetailsRepository.findAllByCareerCareerName(careerName);
+        //return List.of();
     }
 
 

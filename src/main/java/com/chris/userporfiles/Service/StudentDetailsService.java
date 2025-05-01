@@ -9,12 +9,11 @@ import java.util.List;
 
 public interface StudentDetailsService {
 
-
-    Page<StudentDetails> finAllStudents(Pageable pageable);
+    Page<StudentDetails> getAllStudents(Pageable pageable);
 
     StudentDetails saveStudent(StudentDetails studentDetails);
 
-    List<StudentDetails> findAllNameAndLastname(String name , String lastName);
+    List<StudentDetails> getAllNameAndLastname(String name , String lastName);
 
     void deleteStudent(StudentDetails studentDetails);
 
