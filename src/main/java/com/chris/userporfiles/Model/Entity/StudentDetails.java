@@ -10,12 +10,12 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "user_details")
+@Table(name = "student_detail")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDetails {
+public class StudentDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -60,22 +60,22 @@ public class UserDetails {
     @Column(name = "created_at" , columnDefinition = "DATE")
     private LocalDateTime createdAt;
 
-    @OneToOne(mappedBy = "userDetails")
+    @OneToOne(mappedBy = "studentDetails")
     private User user;
 
-    @OneToMany(mappedBy = "userDetails")
+    @OneToMany(mappedBy = "studentDetails")
     private List<SocialMedia> socialMedia;
 
-    @OneToMany(mappedBy = "userDetails")
+    @OneToMany(mappedBy = "studentDetails")
     private List<Education> education;
 
-    @OneToMany(mappedBy = "userDetails")
+    @OneToMany(mappedBy = "studentDetails")
     private List<Languages> languages;
 
-    @OneToMany(mappedBy = "userDetails")
+    @OneToMany(mappedBy = "studentDetails")
     private List<Projects> projects;
 
-    @OneToMany(mappedBy = "userDetails")
+    @OneToMany(mappedBy = "studentDetails")
     private List<Skills> skills;
 
     @OneToOne

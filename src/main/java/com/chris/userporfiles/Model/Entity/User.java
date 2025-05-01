@@ -33,5 +33,5 @@ public class User {
 
     @OneToOne
     @JoinColumn(name = "user_id" , referencedColumnName = "id" , insertable = false , updatable = false)
-    private UserDetails userDetails;
+    private StudentDetails studentDetails;
 }

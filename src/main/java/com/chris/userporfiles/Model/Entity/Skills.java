@@ -28,5 +28,5 @@ public class Skills {
 
     @ManyToOne
     @JoinColumn(name = "user_details_id" , referencedColumnName = "id" , insertable = false , updatable = false)
-    private UserDetails userDetails;
+    private StudentDetails studentDetails;
 }

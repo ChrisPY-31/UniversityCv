@@ -25,5 +25,5 @@ public class Career {
     private String careerName;
 
     @OneToOne(mappedBy = "career" )
-    private UserDetails userDetails;
+    private StudentDetails studentDetails;
 }
