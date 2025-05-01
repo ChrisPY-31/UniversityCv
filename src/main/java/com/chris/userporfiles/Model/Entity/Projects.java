@@ -45,7 +45,7 @@ public class Projects {
 
     @ManyToOne
     @JoinColumn(name = "user_details_id" , referencedColumnName = "id" , insertable = false , updatable = false)
-    private UserDetails userDetails;
+    private StudentDetails studentDetails;
 
     @OneToMany(mappedBy = "project")
     private List<Aptitudes> aptitudes;
