@@ -1,5 +1,6 @@
 package com.chris.userporfiles.Model.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,9 +23,6 @@ public class StudentDetails {
 
     @Column(name = "user_id")
     private Integer idUser;
-
-    @Column(name = "career_id")
-    private Integer idCareer;
 
     @Column(length = 100 , nullable = false)
     private String name;
@@ -58,9 +56,10 @@ public class StudentDetails {
     private LocalDateTime updated ;
 
     @Column(name = "created_at" , columnDefinition = "DATE")
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     @OneToOne(mappedBy = "studentDetails")
+    @JsonIgnore
     private User user;
 
     @OneToMany(mappedBy = "studentDetails")
@@ -79,7 +78,7 @@ public class StudentDetails {
     private List<Skills> skills;
 
     @OneToOne
-    @JoinColumn(name = "user_details_id" , referencedColumnName = "id" , insertable = false, updatable = false)
+    @JoinColumn(name = "id" , referencedColumnName = "user_details_id" , insertable = false, updatable = false)
     private Career career;
 
 }

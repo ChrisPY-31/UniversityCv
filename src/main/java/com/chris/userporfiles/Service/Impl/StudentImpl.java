@@ -7,6 +7,7 @@ import com.chris.userporfiles.Repository.StudentDetailsRepository;
 import com.chris.userporfiles.Service.StudentDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -22,8 +23,19 @@ public class StudentImpl implements StudentDetailsService {
     private StudentDetailsPaginationRepository studentDetailsPaginationRepository;
 
     @Override
-    public Page<StudentDetails> getAllStudents(Pageable pageable) {
-        return studentDetailsPaginationRepository.findAll(pageable);
+    public Page<StudentDetails> getAllStudents(int page , int size) {
+        Pageable pageStudents = PageRequest.of(page, size);
+        return studentDetailsPaginationRepository.findAll(pageStudents);
+    }
+
+    @Override
+    public Boolean existStudent(Integer id) {
+        return studentDetailsRepository.existsById(id);
+    }
+
+    @Override
+    public StudentDetails getStudentById(int id) {
+        return studentDetailsRepository.findById(id).orElse(null);
     }
 
     @Override
