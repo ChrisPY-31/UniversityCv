@@ -1,5 +1,6 @@
 package com.chris.userporfiles.Model.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,12 +22,13 @@ public class Languages {
     @Column(name = "user_details_id")
     private Integer id_UserDetails;
 
-    @Column(nullable = false)
+    @Column(nullable = false , unique = true)
     private String languaje;
 
     private String proficiency;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "user_details_id" , referencedColumnName = "id" , insertable = false, updatable = false)
     private StudentDetails studentDetails;
 }

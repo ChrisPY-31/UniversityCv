@@ -1,5 +1,6 @@
 package com.chris.userporfiles.Model.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -35,6 +36,7 @@ public class Education {
     private LocalDateTime endDate;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "user_details_id" , referencedColumnName = "id" , insertable = false , updatable = false)
     private StudentDetails studentDetails;
 }
