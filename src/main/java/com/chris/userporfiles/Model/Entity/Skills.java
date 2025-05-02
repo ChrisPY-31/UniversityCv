@@ -1,5 +1,6 @@
 package com.chris.userporfiles.Model.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,5 +29,6 @@ public class Skills {
 
     @ManyToOne
     @JoinColumn(name = "user_details_id" , referencedColumnName = "id" , insertable = false , updatable = false)
+    @JsonIgnore
     private StudentDetails studentDetails;
 }
