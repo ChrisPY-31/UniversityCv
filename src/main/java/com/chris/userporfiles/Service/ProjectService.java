@@ -1,18 +1,19 @@
 package com.chris.userporfiles.Service;
 
+import com.chris.userporfiles.Model.Dto.ProjectsDto;
 import com.chris.userporfiles.Model.Entity.Projects;
 
 import java.util.List;
 
 public interface ProjectService {
 
-    List<Projects> getAllProjects();
+    List<ProjectsDto> getAllProjects();
 
-    Projects getProjectById(int id);
+    ProjectsDto getProjectById(int id);
 
-    Projects saveProject(Projects project);
+    ProjectsDto saveProject(ProjectsDto projectDto);
 
-    void deleteProject(Projects project);
+    void deleteProject(ProjectsDto projectDto);
 
     Boolean existsProject(Integer id);
 }

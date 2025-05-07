@@ -1,5 +1,7 @@
 package com.chris.userporfiles.Service.Impl;
 
+import com.chris.userporfiles.Mappers.EducationMappers;
+import com.chris.userporfiles.Model.Dto.EducationDto;
 import com.chris.userporfiles.Model.Entity.Education;
 import com.chris.userporfiles.Repository.EducationRepository;
 import com.chris.userporfiles.Service.EducationService;
@@ -13,12 +15,15 @@ public class EducationImpl implements EducationService {
     private EducationRepository educationRepository;
 
     @Override
-    public Education saveEducation(Education education) {
-        return educationRepository.save(education);
+    public EducationDto saveEducation(EducationDto educationDto) {
+        Education education = EducationMappers.INSTANCE.toEducation(educationDto);
+        educationRepository.save(education);
+        return educationDto;
     }
 
     @Override
-    public void deleteEducation(Education education) {
+    public void deleteEducation(EducationDto educationDto) {
+        Education education = EducationMappers.INSTANCE.toEducation(educationDto);
         educationRepository.delete(education);
     }
 
@@ -28,7 +33,7 @@ public class EducationImpl implements EducationService {
     }
 
     @Override
-    public Education getEducationId(Integer id) {
-        return educationRepository.findById(id).orElse(null);
+    public EducationDto getEducationId(Integer id) {
+        return educationRepository.findById(id).map(EducationMappers.INSTANCE::toEducationDto).orElse(null);
     }
 }

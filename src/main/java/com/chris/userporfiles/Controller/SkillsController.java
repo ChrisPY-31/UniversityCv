@@ -1,6 +1,7 @@
 package com.chris.userporfiles.Controller;
 
 import com.chris.userporfiles.Exception.Mensaje;
+import com.chris.userporfiles.Model.Dto.SkillsDto;
 import com.chris.userporfiles.Model.Entity.Skills;
 import com.chris.userporfiles.Service.ProjectService;
 import com.chris.userporfiles.Service.SkillService;
@@ -18,11 +19,11 @@ public class SkillsController {
     private final ProjectService projectService;
 
     @PostMapping("skills")
-    private ResponseEntity<?> saveSkills(@RequestBody Skills skills){
-        Skills skills1 = null;
+    private ResponseEntity<?> saveSkills(@RequestBody SkillsDto skillsDto){
+        SkillsDto skills1 = null;
         try {
-            if(projectService.existsProject(skills.getIdUserDetails())){
-                skills1 = skillService.saveSkills(skills);
+            if(projectService.existsProject(skillsDto.getIdUserDetails())){
+                skills1 = skillService.saveSkills(skillsDto);
                 return new ResponseEntity<>(Mensaje
                         .builder()
                         .mensaje("Se agrego correctamente")
@@ -39,12 +40,12 @@ public class SkillsController {
     }
 
     @PutMapping("skills/{id}")
-    private ResponseEntity<?> updateSkills(@RequestBody Skills skills, @PathVariable Integer id){
-        Skills skillsUpdate = null;
+    private ResponseEntity<?> updateSkills(@RequestBody SkillsDto skillsDto, @PathVariable Integer id){
+        SkillsDto skillsUpdate = null;
         try{
 
-            if(skillService.existSkills(id) && skills.getId().equals(id)){
-                skillsUpdate = skillService.saveSkills(skills);
+            if(skillService.existSkills(id) && skillsDto.getId().equals(id)){
+                skillsUpdate = skillService.saveSkills(skillsDto);
                 return new ResponseEntity<>(Mensaje
                         .builder()
                         .mensaje("Skills actualizo con exito")
@@ -61,9 +62,9 @@ public class SkillsController {
 
     @DeleteMapping("skills/{id}")
     private ResponseEntity<?> deleteSkills(@PathVariable Integer id){
-        Skills skills = skillService.getSkillsId(id);
-        if(skills != null){
-            skillService.deleteSkills(skills);
+        SkillsDto skillsDelete = skillService.getSkillsId(id);
+        if(skillsDelete != null){
+            skillService.deleteSkills(skillsDelete);
             return new ResponseEntity<>(Mensaje
                     .builder()
                     .mensaje("Se elimino con exito")

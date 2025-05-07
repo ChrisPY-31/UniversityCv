@@ -1,6 +1,7 @@
 package com.chris.userporfiles.Controller;
 
 import com.chris.userporfiles.Exception.Mensaje;
+import com.chris.userporfiles.Model.Dto.SocialMediaDto;
 import com.chris.userporfiles.Model.Entity.SocialMedia;
 import com.chris.userporfiles.Service.ProjectService;
 import com.chris.userporfiles.Service.SocialMediaService;
@@ -18,15 +19,15 @@ public class SocialMediaController {
     private final ProjectService projectService;
 
     @PostMapping("socialMedia")
-    private ResponseEntity<?> saveSocialMedia(@RequestBody SocialMedia socialMedia) {
-        SocialMedia savedSocialMedia = null;
+    private ResponseEntity<?> saveSocialMedia(@RequestBody SocialMediaDto socialMediaDto) {
+        SocialMediaDto savedSocialMediaDto = null;
         try {
-            if (projectService.existsProject(socialMedia.getIdUserDetails())) {
-                savedSocialMedia = socialMediaService.saveSocialMedia(socialMedia);
+            if (projectService.existsProject(socialMediaDto.getIdUserDetails())) {
+                savedSocialMediaDto = socialMediaService.saveSocialMedia(socialMediaDto);
                 return new ResponseEntity<>(Mensaje
                         .builder()
                         .mensaje("Red social creado con exito")
-                        .object(savedSocialMedia)
+                        .object(savedSocialMediaDto)
                         .build() , HttpStatus.CREATED);
             }
             return ResponseEntity.notFound().build();
@@ -36,13 +37,13 @@ public class SocialMediaController {
     }
 
     @PutMapping("socialMedia/{id}")
-    private ResponseEntity<?> updateSocialMedia(@PathVariable Integer id, @RequestBody SocialMedia socialMedia) {
+    private ResponseEntity<?> updateSocialMedia(@PathVariable Integer id, @RequestBody SocialMediaDto socialMediaDto) {
 
-        SocialMedia social = null;
+        SocialMediaDto socialDto = null;
         try{
-            if(socialMediaService.existsSocialMedia(id) && socialMedia.getId().equals(id)){
-                social = socialMediaService.saveSocialMedia(socialMedia);
-                return new ResponseEntity<>(Mensaje.builder().mensaje("Actualizado con exito").object(social).build() , HttpStatus.OK);
+            if(socialMediaService.existsSocialMedia(id) && socialMediaDto.getId().equals(id)){
+                socialDto = socialMediaService.saveSocialMedia(socialMediaDto);
+                return new ResponseEntity<>(Mensaje.builder().mensaje("Actualizado con exito").object(socialDto).build() , HttpStatus.OK);
             }
             return ResponseEntity.badRequest().body("El id no se encontro" + id);
         }catch (Exception e){
@@ -53,9 +54,9 @@ public class SocialMediaController {
 
     @DeleteMapping("socialMedia/{id}")
     private ResponseEntity<?> deleteSocialMedia(@PathVariable Integer id) {
-        SocialMedia socialMedia = socialMediaService.getSocialMediaById(id);
-        if(socialMedia != null) {
-            socialMediaService.deleteSocialMedia(socialMedia);
+        SocialMediaDto socialMediaDto = socialMediaService.getSocialMediaById(id);
+        if(socialMediaDto != null) {
+            socialMediaService.deleteSocialMedia(socialMediaDto);
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.notFound().build();

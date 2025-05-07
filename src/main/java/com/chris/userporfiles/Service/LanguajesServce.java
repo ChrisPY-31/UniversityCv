@@ -1,15 +1,14 @@
 package com.chris.userporfiles.Service;
 
-import com.chris.userporfiles.Model.Entity.Languages;
-import com.chris.userporfiles.Model.Entity.Skills;
+import com.chris.userporfiles.Model.Dto.LanguageDto;
 
 public interface LanguajesServce {
-    Languages saveLanguajes(Languages languages);
+    LanguageDto saveLanguajes(LanguageDto languageDto);
 
-    void deleteLanguajes(Languages languages);
+    void deleteLanguajes(LanguageDto languageDto);
 
     boolean existsLanguajes(Integer id);
 
-    Languages getLanguajesById(Integer id);
+    LanguageDto getLanguajesById(Integer id);
 
 }

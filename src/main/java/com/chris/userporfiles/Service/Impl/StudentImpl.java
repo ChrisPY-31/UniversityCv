@@ -1,6 +1,10 @@
 package com.chris.userporfiles.Service.Impl;
 
 
+import com.chris.userporfiles.Mappers.StudentDetailMappers;
+import com.chris.userporfiles.Mappers.StudentMappers;
+import com.chris.userporfiles.Model.Dto.StudentDetailDto;
+import com.chris.userporfiles.Model.Dto.StudentDto;
 import com.chris.userporfiles.Model.Entity.StudentDetails;
 import com.chris.userporfiles.Repository.StudentDetailsPaginationRepository;
 import com.chris.userporfiles.Repository.StudentDetailsRepository;
@@ -23,9 +27,9 @@ public class StudentImpl implements StudentDetailsService {
     private StudentDetailsPaginationRepository studentDetailsPaginationRepository;
 
     @Override
-    public Page<StudentDetails> getAllStudents(int page , int size) {
+    public Page<StudentDto> getAllStudents(int page , int size) {
         Pageable pageStudents = PageRequest.of(page, size);
-        return studentDetailsPaginationRepository.findAll(pageStudents);
+        return studentDetailsPaginationRepository.findAll(pageStudents).map(StudentMappers.INSTANCE::toStudentDto);
     }
 
     @Override
@@ -34,23 +38,33 @@ public class StudentImpl implements StudentDetailsService {
     }
 
     @Override
-    public StudentDetails getStudentById(int id) {
-        return studentDetailsRepository.findById(id).orElse(null);
+    public StudentDetailDto getStudentById(int id) {
+        return studentDetailsRepository
+                .findById(id)
+                .map(StudentDetailMappers.INSTANCE::toStudentDetailDto)
+                .orElse(null);
     }
 
     @Override
-    public StudentDetails saveStudent(StudentDetails studentDetails) {
-        return studentDetailsRepository.save(studentDetails);
+    public StudentDetailDto saveStudent(StudentDetailDto studentDetailDto) {
+        StudentDetails studentDetails = StudentDetailMappers.INSTANCE.toStudentDetails(studentDetailDto);
+        studentDetailsRepository.save(studentDetails);
+        return studentDetailDto;
     }
 
     @Override
-    public List<StudentDetails> getAllNameAndLastname(String name, String lastName) {
-        return studentDetailsRepository.findAllByNameOrLastName(name, lastName);
+    public List<StudentDto> getAllNameAndLastname(String name, String lastName) {
+        return studentDetailsRepository
+                .findAllByNameOrLastName(name, lastName)
+                .stream()
+                .map(StudentMappers.INSTANCE::toStudentDto)
+                .toList();
        // return List.of();
     }
 
     @Override
-    public void deleteStudent(StudentDetails studentDetails) {
+    public void deleteStudent(StudentDetailDto studentDetailDto) {
+        StudentDetails studentDetails = StudentDetailMappers.INSTANCE.toStudentDetails(studentDetailDto);
         studentDetailsRepository.delete(studentDetails);
     }
 

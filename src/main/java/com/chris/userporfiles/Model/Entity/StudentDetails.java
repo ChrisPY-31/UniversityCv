@@ -2,10 +2,7 @@ package com.chris.userporfiles.Model.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -16,6 +13,8 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
+
 public class StudentDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -80,5 +79,6 @@ public class StudentDetails {
     @OneToOne
     @JoinColumn(name = "id" , referencedColumnName = "user_details_id" , insertable = false, updatable = false)
     private Career career;
+
 
 }

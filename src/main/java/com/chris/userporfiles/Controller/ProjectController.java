@@ -1,6 +1,7 @@
 package com.chris.userporfiles.Controller;
 
 import com.chris.userporfiles.Exception.Mensaje;
+import com.chris.userporfiles.Model.Dto.ProjectsDto;
 import com.chris.userporfiles.Model.Entity.Projects;
 import com.chris.userporfiles.Service.ProjectService;
 import com.chris.userporfiles.Service.StudentDetailsService;
@@ -21,7 +22,7 @@ public class ProjectController {
 
     @GetMapping("proyectos")
     private ResponseEntity<?> getAllProyects() {
-        List<Projects> proyect = projectService.getAllProjects();
+        List<ProjectsDto> proyect = projectService.getAllProjects();
         if (!proyect.isEmpty()) {
             return new ResponseEntity<>(Mensaje.builder().mensaje("").object(proyect).build(), HttpStatus.OK);
         }
@@ -31,13 +32,13 @@ public class ProjectController {
     }
 
     @PostMapping("proyectos")
-    private ResponseEntity<?> saveProyect(@RequestBody Projects proyect) {
-        Projects projects = null;
+    private ResponseEntity<?> saveProyect(@RequestBody ProjectsDto proyectDto) {
+        ProjectsDto saveProjects = null;
 
         try {
-            if (studentDetailsService.existStudent(proyect.getIdUserDetails())) {
-                projects = projectService.saveProject(proyect);
-                return new ResponseEntity<>(Mensaje.builder().mensaje("").object(projects).build(), HttpStatus.CREATED);
+            if (studentDetailsService.existStudent(proyectDto.getIdUserDetails())) {
+                saveProjects = projectService.saveProject(proyectDto);
+                return new ResponseEntity<>(Mensaje.builder().mensaje("").object(saveProjects).build(), HttpStatus.CREATED);
 
             }
             return new ResponseEntity<>(Mensaje.builder().mensaje("El usuario no existe").object(null).build(), HttpStatus.NOT_FOUND);
@@ -47,12 +48,12 @@ public class ProjectController {
     }
 
     @PutMapping("proyectos/{id}")
-    private ResponseEntity<?> updateProyect(@RequestBody Projects proyect, @PathVariable Integer id) {
-        Projects projects = null;
+    private ResponseEntity<?> updateProyect(@RequestBody ProjectsDto proyectDto, @PathVariable Integer id) {
+        ProjectsDto updateProjects = null;
         try {
             if (projectService.existsProject(id)) {
-                projects = projectService.saveProject(proyect);
-                return new ResponseEntity<>(Mensaje.builder().mensaje("Proyecto actualizado con exito").object(projects).build(), HttpStatus.OK);
+                updateProjects = projectService.saveProject(proyectDto);
+                return new ResponseEntity<>(Mensaje.builder().mensaje("Proyecto actualizado con exito").object(updateProjects).build(), HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(Mensaje.builder().mensaje("El proyecto no existe").object(null).build(), HttpStatus.NOT_FOUND);
             }
@@ -64,9 +65,9 @@ public class ProjectController {
 
     @DeleteMapping("proyectos/{id}")
     private ResponseEntity<?> deleteProyect(@PathVariable Integer id) {
-        Projects projects = projectService.getProjectById(id);
-        if (projects != null) {
-            projectService.deleteProject(projects);
+        ProjectsDto deleteProjects = projectService.getProjectById(id);
+        if (deleteProjects != null) {
+            projectService.deleteProject(deleteProjects);
             return ResponseEntity.noContent().build();
         }
         return new ResponseEntity<>(Mensaje.builder().mensaje("No se encontro el id: " + id).object(null).build(), HttpStatus.NOT_FOUND);

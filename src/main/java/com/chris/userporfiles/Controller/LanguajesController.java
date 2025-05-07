@@ -1,8 +1,10 @@
 package com.chris.userporfiles.Controller;
 import com.chris.userporfiles.Exception.Mensaje;
+import com.chris.userporfiles.Model.Dto.LanguageDto;
 import com.chris.userporfiles.Model.Entity.Languages;
 import com.chris.userporfiles.Service.LanguajesServce;
 import com.chris.userporfiles.Service.ProjectService;
+import com.chris.userporfiles.Service.StudentDetailsService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,14 +16,15 @@ import org.springframework.web.bind.annotation.*;
 public class LanguajesController {
 
     private final LanguajesServce languajesServce;
-    private final ProjectService projectService;
+    private final StudentDetailsService projectService;
 
     @PostMapping("languajes")
-    private ResponseEntity<?> saveEducation(@RequestBody Languages languages) {
-        Languages languages1  = null;
+    private ResponseEntity<?> saveEducation(@RequestBody LanguageDto languageDto) {
+        LanguageDto languages1  = null;
+
         try{
-            if(projectService.existsProject(languages.getId_UserDetails())){
-                languages1 = languajesServce.saveLanguajes(languages);
+            if(projectService.existStudent(languageDto.getIdUserDetails())){
+                languages1 = languajesServce.saveLanguajes(languageDto);
                 return new ResponseEntity<>(Mensaje
                         .builder()
                         .mensaje("Se creo con exito")
@@ -37,11 +40,11 @@ public class LanguajesController {
     }
 
     @PutMapping("languajes/{id}")
-    private ResponseEntity<?> updateEducation(@RequestBody Languages languages , @PathVariable Integer id) {
-        Languages languages1  = null;
+    private ResponseEntity<?> updateEducation(@RequestBody LanguageDto languagesDto , @PathVariable Integer id) {
+        LanguageDto languages1  = null;
         try{
-            if(languajesServce.existsLanguajes(id) && languages.getId().equals(id)){
-                languages1 = languajesServce.saveLanguajes(languages);
+            if(languajesServce.existsLanguajes(id) && languagesDto.getId().equals(id)){
+                languages1 = languajesServce.saveLanguajes(languagesDto);
                 return new ResponseEntity<>(Mensaje
                         .builder()
                         .mensaje("Se Actualizo con exito")
@@ -55,9 +58,9 @@ public class LanguajesController {
 
     @DeleteMapping("languajes/{id}")
     private ResponseEntity<?> deleteEducation(@PathVariable Integer id ) {
-        Languages languages = languajesServce.getLanguajesById(id);
-        if (languages != null) {
-            languajesServce.deleteLanguajes(languages);
+        LanguageDto languagesDto = languajesServce.getLanguajesById(id);
+        if (languagesDto != null) {
+            languajesServce.deleteLanguajes(languagesDto);
             return new ResponseEntity<>(Mensaje.builder().mensaje("Atributo elimnado exito").object(null).build() , HttpStatus.NO_CONTENT);
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();

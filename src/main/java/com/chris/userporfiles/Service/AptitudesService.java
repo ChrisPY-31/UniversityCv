@@ -1,14 +1,19 @@
 package com.chris.userporfiles.Service;
 
+import com.chris.userporfiles.Model.Dto.AptitudesDto;
 import com.chris.userporfiles.Model.Entity.Aptitudes;
+
+import java.util.List;
 
 public interface AptitudesService {
 
-    Aptitudes saveAptitudes(Aptitudes aptitudes);
+    List<AptitudesDto> getAptitudes();
 
-    void deleteAptitudes(Aptitudes aptitudes);
+    AptitudesDto saveAptitudes(AptitudesDto aptitudesDto);
 
-    Aptitudes aptitudGetId(Integer id);
+    void deleteAptitudes(AptitudesDto aptitudesDto);
+
+    AptitudesDto aptitudGetId(Integer id);
 
     Boolean existAptitudes(Integer id);
 }

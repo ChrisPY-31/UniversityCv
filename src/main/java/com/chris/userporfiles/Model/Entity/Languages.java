@@ -20,7 +20,7 @@ public class Languages {
     private Integer id;
 
     @Column(name = "user_details_id")
-    private Integer id_UserDetails;
+    private Integer idUserDetails;
 
     @Column(nullable = false , unique = true)
     private String languaje;
