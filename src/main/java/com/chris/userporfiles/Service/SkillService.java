@@ -1,14 +1,14 @@
 package com.chris.userporfiles.Service;
 
-import com.chris.userporfiles.Model.Entity.Skills;
+import com.chris.userporfiles.Model.Dto.SkillsDto;
 
 public interface SkillService {
-    Skills saveSkills(Skills skills);
+    SkillsDto saveSkills(SkillsDto skillsDto);
 
-    void deleteSkills(Skills skills);
+    void deleteSkills(SkillsDto skillsDto);
 
     boolean existSkills(Integer id);
 
-    Skills getSkillsId(Integer id);
+    SkillsDto getSkillsId(Integer id);
 
 }

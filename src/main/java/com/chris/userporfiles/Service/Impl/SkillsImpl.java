@@ -1,5 +1,7 @@
 package com.chris.userporfiles.Service.Impl;
 
+import com.chris.userporfiles.Mappers.SkillsMappers;
+import com.chris.userporfiles.Model.Dto.SkillsDto;
 import com.chris.userporfiles.Model.Entity.Skills;
 import com.chris.userporfiles.Repository.SkillsRepository;
 import com.chris.userporfiles.Service.SkillService;
@@ -13,12 +15,15 @@ public class SkillsImpl implements SkillService {
     private SkillsRepository skillsRepository;
 
     @Override
-    public Skills saveSkills(Skills skills) {
-        return skillsRepository.save(skills);
+    public SkillsDto saveSkills(SkillsDto skillsDto) {
+        Skills skills = SkillsMappers.INSTANCE.toSkills(skillsDto);
+        skillsRepository.save(skills);
+        return skillsDto;
     }
 
     @Override
-    public void deleteSkills(Skills skills) {
+    public void deleteSkills(SkillsDto skillsDto) {
+        Skills skills = SkillsMappers.INSTANCE.toSkills(skillsDto);
         skillsRepository.delete(skills);
     }
 
@@ -28,7 +33,7 @@ public class SkillsImpl implements SkillService {
     }
 
     @Override
-    public Skills getSkillsId(Integer id) {
-        return skillsRepository.findById(id).orElse(null);
+    public SkillsDto getSkillsId(Integer id) {
+        return skillsRepository.findById(id).map(SkillsMappers.INSTANCE::toSkillsDto).orElse(null);
     }
 }

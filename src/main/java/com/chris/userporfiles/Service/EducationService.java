@@ -1,14 +1,15 @@
 package com.chris.userporfiles.Service;
 
+import com.chris.userporfiles.Model.Dto.EducationDto;
 import com.chris.userporfiles.Model.Entity.Education;
 
 public interface EducationService {
 
-    Education saveEducation(Education education);
+    EducationDto saveEducation(EducationDto educationDto);
 
-    void deleteEducation(Education education);
+    void deleteEducation(EducationDto educationDto);
 
     boolean existsEducation(Integer id);
 
-    Education getEducationId(Integer id);
+    EducationDto getEducationId(Integer id);
 }

@@ -1,5 +1,7 @@
 package com.chris.userporfiles.Service;
 
+import com.chris.userporfiles.Model.Dto.StudentDetailDto;
+import com.chris.userporfiles.Model.Dto.StudentDto;
 import com.chris.userporfiles.Model.Entity.StudentDetails;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -9,17 +11,17 @@ import java.util.List;
 
 public interface StudentDetailsService {
 
-    Page<StudentDetails> getAllStudents(int page , int size);
+    Page<StudentDto> getAllStudents(int page , int size);
 
     Boolean existStudent(Integer id);
 
-    StudentDetails getStudentById(int id);
+    StudentDetailDto getStudentById(int id);
 
-    StudentDetails saveStudent(StudentDetails studentDetails);
+    StudentDetailDto saveStudent(StudentDetailDto studentDetailsDto);
 
-    List<StudentDetails> getAllNameAndLastname(String name , String lastName);
+    List<StudentDto> getAllNameAndLastname(String name , String lastName);
 
-    void deleteStudent(StudentDetails studentDetails);
+    void deleteStudent(StudentDetailDto studentDetailDto);
 
     List<StudentDetails> studentCareer(String careerName);
 }

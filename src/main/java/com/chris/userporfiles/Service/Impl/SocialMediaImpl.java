@@ -1,5 +1,7 @@
 package com.chris.userporfiles.Service.Impl;
 
+import com.chris.userporfiles.Mappers.SocialMediaMappers;
+import com.chris.userporfiles.Model.Dto.SocialMediaDto;
 import com.chris.userporfiles.Model.Entity.SocialMedia;
 import com.chris.userporfiles.Repository.SocialMediaRepository;
 import com.chris.userporfiles.Service.SocialMediaService;
@@ -13,12 +15,15 @@ public class SocialMediaImpl implements SocialMediaService {
     private SocialMediaRepository socialMediaRepository;
 
     @Override
-    public SocialMedia saveSocialMedia(SocialMedia socialMedia) {
-        return socialMediaRepository.save(socialMedia);
+    public SocialMediaDto saveSocialMedia(SocialMediaDto socialMediaDto) {
+        SocialMedia socialMedia = SocialMediaMappers.INSTANCE.toSocialMedia(socialMediaDto);
+        socialMediaRepository.save(socialMedia);
+        return socialMediaDto;
     }
 
     @Override
-    public void deleteSocialMedia(SocialMedia socialMedia) {
+    public void deleteSocialMedia(SocialMediaDto socialMediaDto) {
+        SocialMedia socialMedia = SocialMediaMappers.INSTANCE.toSocialMedia(socialMediaDto);
         socialMediaRepository.delete(socialMedia);
     }
 
@@ -28,7 +33,10 @@ public class SocialMediaImpl implements SocialMediaService {
     }
 
     @Override
-    public SocialMedia getSocialMediaById(Integer id) {
-        return socialMediaRepository.findById(id).orElse(null);
+    public SocialMediaDto getSocialMediaById(Integer id) {
+        return socialMediaRepository
+                .findById(id)
+                .map(SocialMediaMappers.INSTANCE::toSocialMediaDto)
+                .orElse(null);
     }
 }

@@ -1,15 +1,15 @@
 package com.chris.userporfiles.Service;
 
-import com.chris.userporfiles.Model.Entity.SocialMedia;
+import com.chris.userporfiles.Model.Dto.SocialMediaDto;
 
 public interface SocialMediaService {
 
-    SocialMedia saveSocialMedia(SocialMedia socialMedia);
+    SocialMediaDto saveSocialMedia(SocialMediaDto socialMediaDto);
 
-    void deleteSocialMedia(SocialMedia socialMedia);
+    void deleteSocialMedia(SocialMediaDto socialMediaDto);
 
     boolean existsSocialMedia(Integer id);
 
-    SocialMedia getSocialMediaById(Integer id);
+    SocialMediaDto getSocialMediaById(Integer id);
 
 }

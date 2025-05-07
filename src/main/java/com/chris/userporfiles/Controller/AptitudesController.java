@@ -1,6 +1,7 @@
 package com.chris.userporfiles.Controller;
 
 import com.chris.userporfiles.Exception.Mensaje;
+import com.chris.userporfiles.Model.Dto.AptitudesDto;
 import com.chris.userporfiles.Model.Entity.Aptitudes;
 import com.chris.userporfiles.Service.AptitudesService;
 import com.chris.userporfiles.Service.ProjectService;
@@ -19,17 +20,23 @@ public class AptitudesController {
 
     private final ProjectService projectService;
 
-    @PostMapping("aptitudes")
-    private ResponseEntity<?> saveAptitudes(@RequestBody Aptitudes aptitudes) {
+    @GetMapping("aptitudes")
+    public ResponseEntity<?> getAllAptitudes(){
+        return ResponseEntity.ok(aptitudesService.getAptitudes());
+    }
 
-        Aptitudes aptitud = null;
+    @PostMapping("aptitudes")
+    private ResponseEntity<?> saveAptitudes(@RequestBody AptitudesDto aptitudesDto) {
+
+        AptitudesDto saveAptitud = null;
         try {
-            if (projectService.existsProject(aptitudes.getIdProject())) {
-                aptitud = aptitudesService.saveAptitudes(aptitudes);
+            System.out.println(aptitudesDto.getNameAptitude() +" desde controller");
+            if (projectService.existsProject(aptitudesDto.getIdProject())) {
+                saveAptitud = aptitudesService.saveAptitudes(aptitudesDto);
                 return new ResponseEntity<>(Mensaje
                         .builder()
                         .mensaje("aptitudes creado con exito")
-                        .object(aptitud)
+                        .object(saveAptitud)
                         .build()
                         , HttpStatus.CREATED);
             }
@@ -41,11 +48,11 @@ public class AptitudesController {
     }
 
     @PutMapping("aptitudes/{id}")
-    private ResponseEntity<?> updateAptitudes(@RequestBody Aptitudes aptitudes, @PathVariable Integer id) {
-        Aptitudes updateAptitud = null;
+    private ResponseEntity<?> updateAptitudes(@RequestBody AptitudesDto aptitudesDto, @PathVariable Integer id) {
+        AptitudesDto updateAptitud = null;
         try {
             if (aptitudesService.existAptitudes(id)) {
-                updateAptitud = aptitudesService.saveAptitudes(aptitudes);
+                updateAptitud = aptitudesService.saveAptitudes(aptitudesDto);
                 return new ResponseEntity<>(Mensaje.builder().mensaje("Aptitud modificada con exito").object(updateAptitud).build(), HttpStatus.OK);
             }
             return ResponseEntity.notFound().build();
@@ -57,9 +64,9 @@ public class AptitudesController {
 
     @DeleteMapping("aptitudes/{id}")
     private ResponseEntity<?> deleteAptitudes(@PathVariable Integer id) {
-        Aptitudes aptitud = aptitudesService.aptitudGetId(id);
-        if (aptitud != null) {
-            aptitudesService.deleteAptitudes(aptitud);
+        AptitudesDto deleteAptitud = aptitudesService.aptitudGetId(id);
+        if (deleteAptitud != null) {
+            aptitudesService.deleteAptitudes(deleteAptitud);
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.notFound().build();

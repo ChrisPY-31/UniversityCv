@@ -1,5 +1,7 @@
 package com.chris.userporfiles.Service.Impl;
 
+import com.chris.userporfiles.Mappers.LanguageMappers;
+import com.chris.userporfiles.Model.Dto.LanguageDto;
 import com.chris.userporfiles.Model.Entity.Languages;
 import com.chris.userporfiles.Repository.LanguajesRepository;
 import com.chris.userporfiles.Service.LanguajesServce;
@@ -13,13 +15,15 @@ public class LanguajesImpl implements LanguajesServce {
     private LanguajesRepository languajesRepository;
 
     @Override
-    public Languages saveLanguajes(Languages languages) {
-        return languajesRepository.save(languages);
+    public LanguageDto saveLanguajes(LanguageDto languageDto) {
+        Languages languages = LanguageMappers.INSTANCE.toLanguage(languageDto);
+        languajesRepository.save(languages);
+        return languageDto;
     }
 
     @Override
-    public void deleteLanguajes(Languages languages) {
-        languajesRepository.delete(languages);
+    public void deleteLanguajes(LanguageDto languageDto) {
+        languajesRepository.delete(LanguageMappers.INSTANCE.toLanguage(languageDto));
     }
 
     @Override
@@ -28,7 +32,7 @@ public class LanguajesImpl implements LanguajesServce {
     }
 
     @Override
-    public Languages getLanguajesById(Integer id) {
-        return languajesRepository.findById(id).orElse(null);
+    public LanguageDto getLanguajesById(Integer id) {
+        return languajesRepository.findById(id).map(LanguageMappers.INSTANCE::toLanguageDto).orElse(null);
     }
 }
